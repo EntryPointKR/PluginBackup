@@ -8,5 +8,8 @@ backup-finish-message: Backup finished
 escape-folders:
   - CoreProtect
   - PluginBackup
+# 백업 예외 월드
+escape-worlds:
+  - world_the_end
 # 백업 파일이 저장될 폴더 (버킷 최상위 경로 기준, C:\backups 로도 작성 가능)
 path: backups

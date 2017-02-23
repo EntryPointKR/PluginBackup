@@ -4,6 +4,7 @@ import kr.rvs.pluginbackup.abstraction.TimeUnit;
 import kr.rvs.pluginbackup.util.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +29,7 @@ public class PluginBackup extends JavaPlugin {
     private static final String BACKUP_START_MESSAGE = "backup-start-message";
     private static final String BACKUP_FINISH_MESSAGE = "backup-finish-message";
     private static final String ESCAPE_FOLDERS = "escape-folders";
+    private static final String ESCAPE_WORLDS = "escape-worlds";
     private static final String PATH = "path";
 
     // Default
@@ -51,6 +54,8 @@ public class PluginBackup extends JavaPlugin {
                 if (files == null) {
                     return;
                 }
+
+                // Plugin data backup
                 for (File file : files) {
                     if (!file.isDirectory()) {
                         continue;
@@ -60,6 +65,29 @@ public class PluginBackup extends JavaPlugin {
                         continue;
                     }
                     Static.writeToZip(out, file);
+                }
+
+                // World backup
+                for (World world : Bukkit.getWorlds()) {
+                    if (getEscapeWorlds().contains(world.getName())) {
+                        continue;
+                    }
+                    try {
+                        Field worldServerField = world.getClass().getDeclaredField("world");
+                        worldServerField.setAccessible(true);
+                        Object worldServer = worldServerField.get(world);
+
+                        Field dataManagerField = getSpecificSuperClass(worldServer.getClass(), "World").getDeclaredField("dataManager");
+                        dataManagerField.setAccessible(true);
+                        Object dataManager = dataManagerField.get(worldServer);
+
+                        Field baseDirField = dataManager.getClass().getSuperclass().getDeclaredField("baseDir");
+                        baseDirField.setAccessible(true);
+                        File file = (File) baseDirField.get(dataManager);
+                        Static.writeToZip(out, file);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -113,6 +141,10 @@ public class PluginBackup extends JavaPlugin {
         return getConfig().getStringList(ESCAPE_FOLDERS);
     }
 
+    private List<String> getEscapeWorlds() {
+        return getConfig().getStringList(ESCAPE_WORLDS);
+    }
+
     private File getBackupPath() {
         String path = getConfig().getString(PATH, "backups");
         return new File(path, getBackupFile());
@@ -125,5 +157,13 @@ public class PluginBackup extends JavaPlugin {
 
     private String colorize(String str) {
         return ChatColor.translateAlternateColorCodes('&', str);
+    }
+
+    private Class<?> getSpecificSuperClass(Class<?> cls, String name) {
+        Class<?> superCls = cls.getSuperclass();
+        if (superCls.getSimpleName().equals(name)) {
+            return superCls;
+        }
+        return getSpecificSuperClass(superCls, name);
     }
 }
