@@ -42,6 +42,7 @@ public class PluginBackup extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
         long period = getBackupPeriod();
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
             Bukkit.broadcastMessage(getStartMessage());
