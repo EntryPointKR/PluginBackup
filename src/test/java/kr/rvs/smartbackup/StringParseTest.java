@@ -1,7 +1,7 @@
-package kr.rvs.pluginbackup;
+package kr.rvs.smartbackup;
 
-import kr.rvs.pluginbackup.abstraction.TimeUnit;
-import kr.rvs.pluginbackup.util.Static;
+import kr.rvs.smartbackup.abstraction.TimeUnit;
+import kr.rvs.smartbackup.util.Static;
 import org.junit.Test;
 
 import java.util.List;

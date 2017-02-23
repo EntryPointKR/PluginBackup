@@ -1,7 +1,7 @@
-package kr.rvs.pluginbackup;
+package kr.rvs.smartbackup;
 
-import kr.rvs.pluginbackup.abstraction.TimeUnit;
-import kr.rvs.pluginbackup.util.Static;
+import kr.rvs.smartbackup.abstraction.TimeUnit;
+import kr.rvs.smartbackup.util.Static;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -23,7 +23,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * Created by Junhyeong Lim on 2017-02-23.
  */
-public class SimpleBackup extends JavaPlugin {
+public class SmartBackup extends JavaPlugin {
     // Key
     private static final String BACKUP_PERIOD = "backup-period";
     private static final String BACKUP_START_MESSAGE = "backup-start-message";

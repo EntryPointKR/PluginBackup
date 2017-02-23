@@ -1,11 +1,11 @@
-package kr.rvs.pluginbackup.util;
+package kr.rvs.smartbackup.util;
 
-import kr.rvs.pluginbackup.abstraction.TimeUnit;
-import kr.rvs.pluginbackup.abstraction.timeunit.BrokenUnit;
-import kr.rvs.pluginbackup.abstraction.timeunit.DayUnit;
-import kr.rvs.pluginbackup.abstraction.timeunit.HourUnit;
-import kr.rvs.pluginbackup.abstraction.timeunit.MinuteUnit;
-import kr.rvs.pluginbackup.abstraction.timeunit.SecondUnit;
+import kr.rvs.smartbackup.abstraction.TimeUnit;
+import kr.rvs.smartbackup.abstraction.timeunit.BrokenUnit;
+import kr.rvs.smartbackup.abstraction.timeunit.DayUnit;
+import kr.rvs.smartbackup.abstraction.timeunit.HourUnit;
+import kr.rvs.smartbackup.abstraction.timeunit.MinuteUnit;
+import kr.rvs.smartbackup.abstraction.timeunit.SecondUnit;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

@@ -1,15 +1,9 @@
-# 백업 주기
 backup-period: 1h30m12s
-# 백업 시작 메세지
 backup-start-message: Backup will be started
-# 백업 완료 메세지
 backup-finish-message: Backup finished
-# 백업 예외 폴더
 escape-folders:
   - CoreProtect
-  - PluginBackup
-# 백업 예외 월드
+  - SmartBackup
 escape-worlds:
   - world_the_end
-# 백업 파일이 저장될 폴더 (버킷 최상위 경로 기준, C:\backups 로도 작성 가능)
 path: backups

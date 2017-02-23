@@ -1,4 +1,4 @@
-package kr.rvs.pluginbackup.abstraction;
+package kr.rvs.smartbackup.abstraction;
 
 /**
  * Created by Junhyeong Lim on 2017-02-23.

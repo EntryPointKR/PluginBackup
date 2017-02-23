@@ -1,6 +1,6 @@
-package kr.rvs.pluginbackup.abstraction.timeunit;
+package kr.rvs.smartbackup.abstraction.timeunit;
 
-import kr.rvs.pluginbackup.abstraction.TimeUnit;
+import kr.rvs.smartbackup.abstraction.TimeUnit;
 
 /**
  * Created by Junhyeong Lim on 2017-02-23.
