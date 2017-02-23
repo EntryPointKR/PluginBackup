@@ -1,0 +1,7 @@
+backup-period: 1h30m12s
+backup-start-message: Backup will be started
+backup-finish-message: Backup finished
+escape-folders:
+  - CoreProtect
+  - PluginBackup
+path: backups

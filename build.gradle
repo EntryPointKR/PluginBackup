@@ -1,0 +1,35 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+group 'kr.rvs.pluginbackup'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+test.testLogging.showStandardStreams = true
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+compileJava.dependsOn clean
+
+repositories {
+    mavenCentral()
+    /* Spigot Repo */
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    compile('org.spigotmc:spigot-api:1.11.2-R0.1-SNAPSHOT') {
+        exclude module: 'bungeecord-chat'
+    }
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+processResources {
+    filteringCharset = 'UTF-8'
+    filter ReplaceTokens, tokens: [
+            "version"    : project.version,
+            "pluginName" : rootProject.name,
+            "mainPackage": "kr.rvs.pluginbackup",
+            "author"     : "EntryPoint"
+    ]
+}
