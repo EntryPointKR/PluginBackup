@@ -1,7 +1,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 group 'kr.rvs.pluginbackup'
-version '1.2-SNAPSHOT'
+version '1.2'
 
 apply plugin: 'java'
 
@@ -29,7 +29,7 @@ processResources {
     filter ReplaceTokens, tokens: [
             "version"    : project.version,
             "pluginName" : rootProject.name,
-            "mainPackage": "kr.rvs.pluginbackup",
+            "mainPackage": "kr.rvs.smartbackup",
             "author"     : "EntryPoint"
     ]
 }

@@ -23,7 +23,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * Created by Junhyeong Lim on 2017-02-23.
  */
-public class PluginBackup extends JavaPlugin {
+public class SimpleBackup extends JavaPlugin {
     // Key
     private static final String BACKUP_PERIOD = "backup-period";
     private static final String BACKUP_START_MESSAGE = "backup-start-message";
