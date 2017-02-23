@@ -6,6 +6,7 @@ import kr.rvs.smartbackup.abstraction.timeunit.DayUnit;
 import kr.rvs.smartbackup.abstraction.timeunit.HourUnit;
 import kr.rvs.smartbackup.abstraction.timeunit.MinuteUnit;
 import kr.rvs.smartbackup.abstraction.timeunit.SecondUnit;
+import org.bukkit.ChatColor;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -94,5 +95,17 @@ public class Static {
             out.write(bytes, 0, read);
         }
         return out.toByteArray();
+    }
+
+    public static String colorize(String str) {
+        return ChatColor.translateAlternateColorCodes('&', str);
+    }
+
+    public static Class<?> getSpecificSuperClass(Class<?> cls, String name) {
+        Class<?> superCls = cls.getSuperclass();
+        if (superCls.getSimpleName().equals(name)) {
+            return superCls;
+        }
+        return getSpecificSuperClass(superCls, name);
     }
 }
