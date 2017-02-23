@@ -24,7 +24,12 @@ public class SmartBackup extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         long period = Config.getBackupPeriod();
         Bukkit.getScheduler().runTaskTimerAsynchronously(
-                this, BackupRunnable::new, period, period);
+                this, new BackupRunnable(), period, period);
+    }
+
+    @Override
+    public void onDisable() {
+        saveConfig();
     }
 
     @Override

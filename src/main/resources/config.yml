@@ -1,4 +1,4 @@
-backup-period: 1h30m12s
+backup-period: 12h30m12s
 backup-start-message: Backup will be started
 backup-finish-message: Backup finished
 escape-folders:
@@ -6,5 +6,5 @@ escape-folders:
   - SmartBackup
 escape-worlds:
   - world_the_end
-backup-limit: 50
+backup-limit: 25
 path: backups
