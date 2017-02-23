@@ -6,4 +6,5 @@ escape-folders:
   - SmartBackup
 escape-worlds:
   - world_the_end
+backup-limit: 50
 path: backups

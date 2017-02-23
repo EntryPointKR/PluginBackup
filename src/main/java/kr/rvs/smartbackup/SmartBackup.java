@@ -30,6 +30,7 @@ public class SmartBackup extends JavaPlugin {
     private static final String BACKUP_FINISH_MESSAGE = "backup-finish-message";
     private static final String ESCAPE_FOLDERS = "escape-folders";
     private static final String ESCAPE_WORLDS = "escape-worlds";
+    private static final String BACKUP_LIMIT = "backup-limit";
     private static final String PATH = "path";
 
     // Default
@@ -45,16 +46,37 @@ public class SmartBackup extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         long period = getBackupPeriod();
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
-            Bukkit.broadcastMessage(getStartMessage());
             File pluginsFolder = getDataFolder().getParentFile();
             File backupPath = getBackupPath();
             File[] files = pluginsFolder.listFiles();
+            File[] backupFiles = backupPath.listFiles();
             backupPath.getParentFile().mkdirs();
 
-            try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(getBackupPath()))) {
+            int backupCount = 0;
+
+            // Backup file counting
+            if (backupFiles != null) {
+                for (File backupFile : backupFiles) {
+                    String name = backupFile.getName();
+                    if (name.contains("backup-")
+                            && name.endsWith(".zip")) {
+                        backupCount++;
+                    }
+                }
+            }
+
+            // Limit
+            if (backupCount > getBackupLimit()) {
+                return;
+            }
+
+            // Start
+            try (ZipOutputStream out = new ZipOutputStream(new FileOutputStream(backupPath))) {
                 if (files == null) {
                     return;
                 }
+
+                Bukkit.broadcastMessage(getStartMessage());
 
                 // Plugin data backup
                 for (File file : files) {
@@ -154,6 +176,10 @@ public class SmartBackup extends JavaPlugin {
     private String getBackupFile() {
         String date = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(new Date());
         return "backup-" + date + ".zip";
+    }
+
+    private int getBackupLimit() {
+        return getConfig().getInt(BACKUP_LIMIT, 50);
     }
 
     private String colorize(String str) {
