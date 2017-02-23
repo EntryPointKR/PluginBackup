@@ -43,7 +43,8 @@ public class Static {
             }
 
             if (cls != null) {
-                tempChars = addTimeUnit(ret, cls, tempChars, tempIndex);
+                addTimeUnit(ret, cls, tempChars, tempIndex);
+                tempChars = new char[tempChars.length];
                 tempIndex = 0;
             } else {
                 tempChars[tempIndex++] = ch;
@@ -53,9 +54,8 @@ public class Static {
         return ret;
     }
 
-    private static char[] addTimeUnit(List<TimeUnit> unitList, Class<? extends TimeUnit> cls, char[] chars, int index) {
+    private static void addTimeUnit(List<TimeUnit> unitList, Class<? extends TimeUnit> cls, char[] chars, int index) {
         unitList.add(ensure(cls, chars, index));
-        return new char[chars.length];
     }
 
     private static TimeUnit ensure(Class<? extends TimeUnit> cls, char[] chars, int index) {

@@ -100,8 +100,8 @@ public class BackupRunnable implements Runnable {
 
                 Field baseDirField = dataManager.getClass().getSuperclass().getDeclaredField("baseDir");
                 baseDirField.setAccessible(true);
-                File file = (File) baseDirField.get(dataManager);
-                Static.writeToZip(out, file);
+                File worldBaseDir = (File) baseDirField.get(dataManager);
+                Static.writeToZip(out, worldBaseDir);
             } catch (Exception e) {
                 e.printStackTrace();
             }
